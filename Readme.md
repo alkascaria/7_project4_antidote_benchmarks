@@ -5,10 +5,10 @@ https://github.com/basho/basho_bench  <br />
 https://www.docker.com/  <br />
 https://github.com/SyncFree/antidote
 
-java benchmarking frameworks
+java benchmarking frameworks  <br />
 
-https://github.com/brianfrankcooper/YCSB
-http://jmeter.apache.org/
+https://github.com/brianfrankcooper/YCSB  <br />
+http://jmeter.apache.org/  <br />
 
-Antidote java client
+Antidote java client  <br />
 https://github.com/SyncFree/antidote-java-client
