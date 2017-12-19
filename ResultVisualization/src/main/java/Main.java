@@ -83,36 +83,12 @@ public class Main {
         public XYSeriesDemo(final String title) {
 
             super(title);
-            XYSeries series = new XYSeries("HBase");
-            series.add(1.0, 69.0);
-            series.add(3.0, 35.0);
-            series.add(6.0, 17.0);
-            series.add(8.0, 27.0);
-            series.add(10.0, 19.0);
-            series.add(12.0, 22.0);
-
-            XYSeries series2 = new XYSeries("Cassandra");
-            series2.add(3.0,8.0);
-            series2.add(6.0,10.0);
-            series2.add(8.0,9.5);
-            series2.add(10.0,10.5);
-            series2.add(12.0,11.5);
-
-            XYSeries series3 = new XYSeries("PNUTS");
-            series3.add(1.0, 8.0);
-            series3.add(3.0, 9.0);
-            series3.add(6.0, 8.5);
-            series3.add(8.0, 6.5);
-            series3.add(10.0, 8.5);
-            series3.add(12.0, 6.5);
 
             /*series.add(21.9, null);
             series.add(25.6, 734.4);
             series.add(30.0, 453.2);*/
-            XYSeriesCollection data = new XYSeriesCollection();
-            data.addSeries(series);
-            data.addSeries(series2);
-            data.addSeries(series3);
+            XYSeriesCollection data = createDataset();
+
             JFreeChart chart = ChartFactory.createXYLineChart(
                     "Read Performance Testing",
                     "Servers",
@@ -162,4 +138,37 @@ public class Main {
         }
         document.close();
     }
+
+    public static XYSeriesCollection createDataset() {
+
+        XYSeriesCollection data = new XYSeriesCollection();
+        XYSeries series = new XYSeries("HBase");
+        series.add(1.0, 69.0);
+        series.add(3.0, 35.0);
+        series.add(6.0, 17.0);
+        series.add(8.0, 27.0);
+        series.add(10.0, 19.0);
+        series.add(12.0, 22.0);
+
+        XYSeries series2 = new XYSeries("Cassandra");
+        series2.add(3.0,8.0);
+        series2.add(6.0,10.0);
+        series2.add(8.0,9.5);
+        series2.add(10.0,10.5);
+        series2.add(12.0,11.5);
+
+        XYSeries series3 = new XYSeries("PNUTS");
+        series3.add(1.0, 8.0);
+        series3.add(3.0, 9.0);
+        series3.add(6.0, 8.5);
+        series3.add(8.0, 6.5);
+        series3.add(10.0, 8.5);
+        series3.add(12.0, 6.5);
+
+        data.addSeries(series);
+        data.addSeries(series2);
+        data.addSeries(series3);
+        return data;
+    }
 }
+
