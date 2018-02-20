@@ -1,4 +1,4 @@
-Installation Instructions for AntidoteBenchmark<br />
+# Installation Instructions for AntidoteBenchmark<br />
 
 Before you can run mvn install or mvn package on the maven project in AntidoteBenchmark you must install three libraries and plugin to maven.<br />
 
@@ -9,15 +9,15 @@ Open the command line on that folder.<br />
 Run the following 4 commands (note that "%current_path%" means the full path to that file) <br />
 
 These commands can also be run by the .bat file or .sh file in the directory (depending on the operating system) <br />
-But check their contents before you run them.<br />
+### But check their contents before you run them.<br />
 <br /><br />
-mvn install:install-file -Dfile="%current_path%\javac2.jar" -DgroupId=com.intellij -DartifactId=javac2 -Dversion=17.1.5 -Dpackaging=jar
+1. mvn install:install-file -Dfile="%current_path%\javac2.jar" -DgroupId=com.intellij -DartifactId=javac2 -Dversion=17.1.5 -Dpackaging=jar
 <br /><br />
-mvn install:install-file -Dfile="%current_path%\asm-all.jar" -DgroupId=com.intellij -DartifactId=asm-all -Dversion=17.1.5 -Dpackaging=jar
+2. mvn install:install-file -Dfile="%current_path%\asm-all.jar" -DgroupId=com.intellij -DartifactId=asm-all -Dversion=17.1.5 -Dpackaging=jar
 <br /><br />
-mvn install:install-file -Dfile="%current_path%\forms_rt.jar" -DgroupId=com.intellij -DartifactId=forms_rt -Dversion=17.1.5 -Dpackaging=jar
+3. mvn install:install-file -Dfile="%current_path%\forms_rt.jar" -DgroupId=com.intellij -DartifactId=forms_rt -Dversion=17.1.5 -Dpackaging=jar
 <br /><br />
-mvn install
+4. mvn install
 <br /><br />
 The first three commands install the necessary Intellij libraries for the UI designer<br />
 
