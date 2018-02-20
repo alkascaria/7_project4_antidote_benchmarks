@@ -1,3 +1,38 @@
+Installation Instructions for AntidoteBenchmark<br />
+
+Before you can run mvn install or mvn package on the maven project in AntidoteBenchmark you must install three libraries and plugin to maven.<br />
+
+First go to the folder \AntidoteBenchmark\extras\ideauidesigner-maven-plugin in the repository.<br />
+
+Open the command line on that folder.<br />
+
+Run the following 4 commands (note that "%current_path%" means the full path to that file) <br />
+
+These commands can also be run by the .bat file or .sh file in the directory (depending on the operating system) <br />
+But check their contents before you run them.<br />
+<br /><br />
+mvn install:install-file -Dfile="%current_path%\javac2.jar" -DgroupId=com.intellij -DartifactId=javac2 -Dversion=17.1.5 -Dpackaging=jar
+<br /><br />
+mvn install:install-file -Dfile="%current_path%\asm-all.jar" -DgroupId=com.intellij -DartifactId=asm-all -Dversion=17.1.5 -Dpackaging=jar
+<br /><br />
+mvn install:install-file -Dfile="%current_path%\forms_rt.jar" -DgroupId=com.intellij -DartifactId=forms_rt -Dversion=17.1.5 -Dpackaging=jar
+<br /><br />
+mvn install
+<br /><br />
+The first three commands install the necessary Intellij libraries for the UI designer<br />
+
+The last command installs the maven plugin that allows compiling and packaging the project with maven<br />
+
+Link to solution explanation -> https://stackoverflow.com/questions/32747917/intellij-gui-designer-maven-executable-jar-export/45125398#45125398 <br />
+
+Link to repository -> https://github.com/jorichard/ideauidesigner-maven-plugin <br />
+
+After that you can most likely run mvn install or mvn package on the maven project in the folder AntidoteBenchmark.
+
+
+
+
+
 https://syncfree.github.io/antidote/  <br />
 https://arewefastyet.com/  <br />
 https://github.com/brianfrankcooper/YCSB/wiki  <br />
