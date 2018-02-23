@@ -1,27 +1,37 @@
 # Installation Instructions for AntidoteBenchmark<br />
 
-Before you can run mvn install or mvn package on the maven project in AntidoteBenchmark you must install three libraries and plugin to maven.<br />
+Before you can run mvn install or mvn package on the maven project in AntidoteBenchmark you must install four libraries and plugin to maven.<br />
 
-First go to the folder \AntidoteBenchmark\extras\ideauidesigner-maven-plugin in the repository.<br />
+First go to the folder Maven_Dependencies_Plugins.<br />
 
-Open the command line on that folder.<br />
+There are two folders named intellij and ycsb<br />
 
-Run the following 4 commands (note that "%current_path%" means the full path to that file) <br />
+In each folder there will be a .bat/.sh script file that will perform the necessary installations. 
 
-These commands can also be run by the .bat file or .sh file in the directory (depending on the operating system) <br />
-### But check their contents before you run them.<br />
+Alternatively the commands for manual installation are listed below:
+
+Open the command line inside the folder intellij.<br />
+
+Run the following 4 commands (after the arrow) (note that %current_path% means the full path to that file and you have to insert that for your system) <br />
+
+1. -> mvn install:install-file -Dfile="%current_path%\javac2.jar" -DgroupId=com.intellij -DartifactId=javac2 -Dversion=17.1.5 -Dpackaging=jar
 <br /><br />
-1. mvn install:install-file -Dfile="%current_path%\javac2.jar" -DgroupId=com.intellij -DartifactId=javac2 -Dversion=17.1.5 -Dpackaging=jar
+2. -> mvn install:install-file -Dfile="%current_path%\asm-all.jar" -DgroupId=com.intellij -DartifactId=asm-all -Dversion=17.1.5 -Dpackaging=jar
 <br /><br />
-2. mvn install:install-file -Dfile="%current_path%\asm-all.jar" -DgroupId=com.intellij -DartifactId=asm-all -Dversion=17.1.5 -Dpackaging=jar
+3. -> mvn install:install-file -Dfile="%current_path%\forms_rt.jar" -DgroupId=com.intellij -DartifactId=forms_rt -Dversion=17.1.5 -Dpackaging=jar
 <br /><br />
-3. mvn install:install-file -Dfile="%current_path%\forms_rt.jar" -DgroupId=com.intellij -DartifactId=forms_rt -Dversion=17.1.5 -Dpackaging=jar
+4. -> mvn install
 <br /><br />
-4. mvn install
-<br /><br />
+
 The first three commands install the necessary Intellij libraries for the UI designer<br />
 
-The last command installs the maven plugin that allows compiling and packaging the project with maven<br />
+The 4. command installs the maven plugin that allows compiling and packaging the project with maven<br />
+
+Now go to the ycsb folder and open the commandline inside it.
+
+Run the following command (after the arrow):
+
+1. -> mvn -pl com.yahoo.ycsb:core -am install<br /><br />
 
 Link to solution explanation -> https://stackoverflow.com/questions/32747917/intellij-gui-designer-maven-executable-jar-export/45125398#45125398 <br />
 
