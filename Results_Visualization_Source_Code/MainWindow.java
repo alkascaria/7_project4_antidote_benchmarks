@@ -59,10 +59,10 @@ public class MainWindow {
     public void setPanelChart1(ChartPanel chartPanel) {
         if(chartPanel == null) System.out.println("panelChart1");
         else {
-            Main.chart = chartPanel.getChart();
-            panelChart1.add(chartPanel, BorderLayout.CENTER);
-            panelChart1.updateUI();
-            savedChartList.add(chartPanel.getChart());
+                Main.chart = chartPanel.getChart();
+                panelChart1.add(chartPanel, BorderLayout.CENTER);
+                panelChart1.updateUI();
+                savedChartList.add(chartPanel.getChart());
         }
     }
 
