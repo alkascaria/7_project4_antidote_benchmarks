@@ -21,25 +21,44 @@ public class AdbmConstants
 
     public static final String benchmarkContainerName = "AntidoteBenchmarkContainer";
 
+    public static final String ycsbDBClassName = "adbm.ycsb.AntidoteYCSBClient";
+
+    public static final String dateFormat = "yyyyMMdd'T'HHmmssXX";
+
+    public static final String resultFileName = "Result";
+
+    public static final int numberCommitAbbreviation = 10; //Should be plenty
+
     /**
      * This is the path to the resources folder where all resource except some properties are stored.
      */
     public static final String resourcesPath = "resources";
 
+    public static final String ycsbPath = format("{}/YCSB", resourcesPath);
+
     /**
      * This is the path to the workloads that can be used for benchmarking with YCSB.
      */
-    public static final String ycsbWorkloadsPath = format("{}/YCSB/Workloads", resourcesPath);
+    public static final String ycsbWorkloadsPath = format("{}/Workloads", ycsbPath);
+
+    /**
+     * This is the path to the YCSB benchmark results.
+     */
+    public static final String ycsbResultsPath = format("{}/Results", ycsbPath);
+
+    public static final String ycsbSampleResultPath = format("{}/SampleResult.csv", ycsbResultsPath);
+
+    public static final String settingsPath = format("{}/Settings", resourcesPath);
 
     /**
      * This is the path to the application settings.
      */
-    public static final String appSettingsPath = format("{}/Settings/AppSettings", resourcesPath);
+    public static final String appSettingsPath = format("{}/AppSettings", settingsPath);
 
     /**
      * This is the path to the log4j2.xml configuration file.
      */
-    public static final String logSettingsPath = format("{}/log4j2.xml", resourcesPath);
+    public static final String logSettingsPath = "log4j2.xml";
 
     /**
      * This is the path to the Dockerfile that is used to build the benchmark image.

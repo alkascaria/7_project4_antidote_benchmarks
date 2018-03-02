@@ -8,7 +8,6 @@ import adbm.antidote.IAntidoteClientWrapper;
 import adbm.antidote.operations.UpdateOperation;
 import adbm.antidote.util.AntidoteUtil;
 import adbm.antidote.wrappers.AntidoteClientWrapper;
-import adbm.main.Main;
 import adbm.util.AdbmConstants;
 import com.yahoo.ycsb.*;
 import org.apache.logging.log4j.LogManager;
@@ -48,6 +47,7 @@ public class AntidoteYCSBClient extends DB
     @Override
     public void cleanup() throws DBException {
         antidoteClient.stop();
+        antidoteClient = null;
     }
 
     /**

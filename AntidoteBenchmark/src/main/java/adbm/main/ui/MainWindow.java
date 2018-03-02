@@ -9,19 +9,12 @@ import adbm.settings.ui.SettingsDialog;
 import adbm.util.AdbmConstants;
 import adbm.util.TextPaneAppender;
 import adbm.util.helpers.FileUtil;
-import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.text.DefaultFormatter;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -89,7 +82,8 @@ public class MainWindow extends JFrame
             public void windowClosing(WindowEvent e)
             {
                 int i = JOptionPane
-                        .showConfirmDialog(null, format("Do you want to close the {} application?", AdbmConstants.appName),
+                        .showConfirmDialog(null,
+                                           format("Do you want to close the {} application?", AdbmConstants.appName),
                                            "Confirmation", JOptionPane.YES_NO_OPTION);
                 if (i == JOptionPane.YES_OPTION) {
                     log.info("The application will be closed now.");
@@ -101,7 +95,7 @@ public class MainWindow extends JFrame
                 }
             }
         });
-        spinnerThreadCount.setValue(Main.getNumberOfThreads());
+        spinnerThreadCount.setValue(Main.getBenchmarkConfig().getNumberOfThreads());
         JComponent comp = spinnerThreadCount.getEditor();
         JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);
         DefaultFormatter formatter = (DefaultFormatter) field.getFormatter();
@@ -113,10 +107,10 @@ public class MainWindow extends JFrame
             } catch (NumberFormatException e1) {
                 log.error("Thread Count is not a Number!", e1);
             }
-            Main.setNumberOfThreads(numberOfThreads);
-            spinnerThreadCount.setValue(Main.getNumberOfThreads());
+            Main.getBenchmarkConfig().setNumberOfThreads(numberOfThreads);
+            spinnerThreadCount.setValue(Main.getBenchmarkConfig().getNumberOfThreads());
         });
-        spinnerTarget.setValue(Main.getNumberOfThreads());
+        spinnerTarget.setValue(Main.getBenchmarkConfig().getNumberOfThreads());
         comp = spinnerTarget.getEditor();
         field = (JFormattedTextField) comp.getComponent(0);
         formatter = (DefaultFormatter) field.getFormatter();
@@ -128,8 +122,8 @@ public class MainWindow extends JFrame
             } catch (NumberFormatException e1) {
                 log.error("Thread Count is not a Number!", e1);
             }
-            Main.setNumberOfThreads(numberOfThreads);
-            spinnerTarget.setValue(Main.getNumberOfThreads());
+            Main.getBenchmarkConfig().setNumberOfThreads(numberOfThreads);
+            spinnerTarget.setValue(Main.getBenchmarkConfig().getNumberOfThreads());
         });
         comboBoxWorkload.setModel(comboBoxWorkloadModel);
         updateWorkloads();
@@ -154,7 +148,8 @@ public class MainWindow extends JFrame
         });
         buttonStartAntidote.addActionListener(e -> {
             if (Main.getDockerManager().isReady())
-                new AntidoteView(new AntidoteClientWrapperGui("AntidoteGuiClient", AdbmConstants.benchmarkContainerName)); //TODO change this!
+                new AntidoteView(new AntidoteClientWrapperGui("AntidoteGuiClient",
+                                                              AdbmConstants.benchmarkContainerName)); //TODO change this!
             //TODO
         });
         buttonCreateDockerfile.addActionListener(e -> {
@@ -200,20 +195,23 @@ public class MainWindow extends JFrame
             }
         });
         buttonRunBenchmark.addActionListener(e -> {
-            Main.benchmarkTest();
+            executorService.execute(() -> {
+                Main.getBenchmarkConfig().runBenchmark();
+            });
         });
         checkBoxUseTransactions.addActionListener(e -> {
-            Main.setUseTransactions(checkBoxUseTransactions.isSelected());
+            Main.getBenchmarkConfig().setUseTransactions(checkBoxUseTransactions.isSelected());
         });
         comboBoxWorkload.addActionListener(e -> {
             String selectedItem = comboBoxWorkloadModel.getSelectedItem().toString();
-            if (selectedItem != null && !Main.getUsedWorkLoad().equals(selectedItem)) {
-                Main.setUsedWorkload(selectedItem);
+            if (selectedItem != null && !Main.getBenchmarkConfig().getUsedWorkLoad().equals(selectedItem)) {
+                Main.getBenchmarkConfig().setUsedWorkload(selectedItem);
                 updateWorkloads();
             }
         });
         buttonOpenWorkload.addActionListener(e -> {
-            ProcessBuilder pb = new ProcessBuilder("Notepad.exe", format("{}/{}", AdbmConstants.ycsbWorkloadsPath, Main.getUsedWorkLoad()));
+            ProcessBuilder pb = new ProcessBuilder("Notepad.exe", format("{}/{}", AdbmConstants.ycsbWorkloadsPath,
+                                                                         Main.getBenchmarkConfig().getUsedWorkLoad()));
             try {
                 pb.start();
             } catch (IOException e1) {
@@ -223,97 +221,12 @@ public class MainWindow extends JFrame
     }
 
 
-
-    private void updateWorkloads() {
+    private void updateWorkloads()
+    {
         comboBoxWorkloadModel.removeAllElements();
         for (String fileName : FileUtil.getAllFileNamesInFolder(AdbmConstants.ycsbWorkloadsPath))
             comboBoxWorkloadModel.addElement(fileName);
-        comboBoxWorkloadModel.setSelectedItem(Main.getUsedWorkLoad());
+        comboBoxWorkloadModel.setSelectedItem(Main.getBenchmarkConfig().getUsedWorkLoad());
     }
 
-    {
-// GUI initializer generated by IntelliJ IDEA GUI Designer
-// >>> IMPORTANT!! <<<
-// DO NOT EDIT OR ADD ANY CODE HERE!
-        $$$setupUI$$$();
-    }
-
-    /**
-     * Method generated by IntelliJ IDEA GUI Designer
-     * >>> IMPORTANT!! <<<
-     * DO NOT edit this method OR call it in your code!
-     *
-     * @noinspection ALL
-     */
-    private void $$$setupUI$$$()
-    {
-        panel = new JPanel();
-        panel.setLayout(new GridLayoutManager(6, 2, new Insets(20, 20, 20, 20), -1, -1));
-        panel.setAutoscrolls(true);
-        buttonSettings = new JButton();
-        buttonSettings.setText("Open Application Settings");
-        panel.add(buttonSettings,
-                  new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
-                                      GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                                      GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        buttonStartDocker = new JButton();
-        buttonStartDocker.setText("Start Docker Connection");
-        panel.add(buttonStartDocker,
-                  new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
-                                      GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                                      GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        buttonStartGit = new JButton();
-        buttonStartGit.setEnabled(true);
-        buttonStartGit.setText("Start Git Connection");
-        panel.add(buttonStartGit,
-                  new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
-                                      GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                                      GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JScrollPane scrollPane1 = new JScrollPane();
-        panel.add(scrollPane1, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH,
-                                                   GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW,
-                                                   GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW,
-                                                   null, new Dimension(500, 500), null, 0, false));
-        textPaneConsole = new JTextPane();
-        textPaneConsole.setEditable(false);
-        scrollPane1.setViewportView(textPaneConsole);
-        final JLabel label1 = new JLabel();
-        label1.setText("Console Log");
-        panel.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE,
-                                              GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null,
-                                              null, null, 0, false));
-        buttonShowGitSettings = new JButton();
-        buttonShowGitSettings.setText("Open Git Settings");
-        panel.add(buttonShowGitSettings,
-                  new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
-                                      GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                                      GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        buttonStartAntidote = new JButton();
-        buttonStartAntidote.setEnabled(true);
-        buttonStartAntidote.setText("Start Antidote");
-        panel.add(buttonStartAntidote,
-                  new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
-                                      GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                                      GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        buttonCreateDockerfile = new JButton();
-        buttonCreateDockerfile.setText("Create Dockerfile");
-        panel.add(buttonCreateDockerfile,
-                  new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
-                                      GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                                      GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        buttonBuildBenchmarkImages = new JButton();
-        buttonBuildBenchmarkImages.setText("Build Benchmark Images");
-        panel.add(buttonBuildBenchmarkImages,
-                  new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL,
-                                      GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW,
-                                      GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-    }
-
-    /**
-     * @noinspection ALL
-     */
-    public JComponent $$$getRootComponent$$$()
-    {
-        return panel;
-    }
 }

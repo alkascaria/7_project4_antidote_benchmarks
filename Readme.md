@@ -4,9 +4,9 @@ Before you can run mvn install or mvn package on the maven project in AntidoteBe
 
 First go to the folder Maven_Dependencies_Plugins.<br />
 
-There are two folders named intellij and ycsb<br />
+There is a folders named intellij<br />
 
-In each folder there will be a .bat/.sh script file that will perform the necessary installations. 
+In this folder there will be a .bat/.sh script file that will perform the necessary installations. 
 
 Alternatively the commands for manual installation are listed below:
 
@@ -26,12 +26,6 @@ Run the following 4 commands (after the arrow) (note that %current_path% means t
 The first three commands install the necessary Intellij libraries for the UI designer<br />
 
 The 4. command installs the maven plugin that allows compiling and packaging the project with maven<br />
-
-Now go to the ycsb folder and open the commandline inside it.
-
-Run the following command (after the arrow):
-
-1. -> mvn -pl com.yahoo.ycsb:core -am install<br /><br />
 
 Link to solution explanation -> https://stackoverflow.com/questions/32747917/intellij-gui-designer-maven-executable-jar-export/45125398#45125398 <br />
 

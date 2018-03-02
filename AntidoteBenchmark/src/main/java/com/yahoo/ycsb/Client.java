@@ -1032,7 +1032,7 @@ public class Client
             if (props.getProperty(Measurements.MEASUREMENT_TYPE_PROPERTY, "").compareTo("timeseries") == 0) {
                 standardstatus = true;
             }
-            int statusIntervalSeconds = Integer.parseInt(props.getProperty("status.interval", "20"));
+            int statusIntervalSeconds = Integer.parseInt(props.getProperty("status.interval", "1"));
             boolean trackJVMStats = props.getProperty(Measurements.MEASUREMENT_TRACK_JVM_PROPERTY,
                                                       Measurements.MEASUREMENT_TRACK_JVM_PROPERTY_DEFAULT)
                                          .equals("true");
@@ -1112,6 +1112,7 @@ public class Client
             e.printStackTrace();
             System.exit(-1);
         }
+        Measurements.refreshMeasurements();
         log.info("YCSB Benchmark complete.");
         //TODO
     }
