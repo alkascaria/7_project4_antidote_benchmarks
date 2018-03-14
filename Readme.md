@@ -1,40 +1,16 @@
 # Installation Instructions for AntidoteBenchmark<br />
 
-Before you can run mvn install or mvn package on the maven project in AntidoteBenchmark you must install four libraries and plugin to maven.<br />
+Before you can run mvn install or mvn package on the maven project in AntidoteBenchmark you must install some additional dependencies.<br />
 
-First go to the folder Maven_Dependencies_Plugins.<br />
+Just run installdependencies.sh (Windows -> run with gitbash alias Git for Windows) to install all necessary dependencies.
 
-There is a folders named intellij<br />
-
-In this folder there will be a .bat/.sh script file that will perform the necessary installations. 
-
-Alternatively the commands for manual installation are listed below:
-
-Open the command line inside the folder intellij.<br />
-
-Run the following 4 commands (after the arrow) (note that %current_path% means the full path to that file and you have to insert that for your system) <br />
-
-1. -> mvn install:install-file -Dfile="%current_path%\javac2.jar" -DgroupId=com.intellij -DartifactId=javac2 -Dversion=17.1.5 -Dpackaging=jar
-<br /><br />
-2. -> mvn install:install-file -Dfile="%current_path%\asm-all.jar" -DgroupId=com.intellij -DartifactId=asm-all -Dversion=17.1.5 -Dpackaging=jar
-<br /><br />
-3. -> mvn install:install-file -Dfile="%current_path%\forms_rt.jar" -DgroupId=com.intellij -DartifactId=forms_rt -Dversion=17.1.5 -Dpackaging=jar
-<br /><br />
-4. -> mvn install
-<br /><br />
-
-The first three commands install the necessary Intellij libraries for the UI designer<br />
-
-The 4. command installs the maven plugin that allows compiling and packaging the project with maven<br />
+Two small git repos will be cloned and some maven libraries are installed to the local maven repository
 
 Link to solution explanation -> https://stackoverflow.com/questions/32747917/intellij-gui-designer-maven-executable-jar-export/45125398#45125398 <br />
 
 Link to repository -> https://github.com/jorichard/ideauidesigner-maven-plugin <br />
 
-After that you can most likely run mvn install or mvn package on the maven project in the folder AntidoteBenchmark.
-
-
-
+If everything worked you can now run mvn install or mvn package on the maven project in the folder AntidoteBenchmark.
 
 
 https://syncfree.github.io/antidote/  <br />
