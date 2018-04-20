@@ -1,18 +1,22 @@
-#!/bin/sh
-
+#!/bin/bash
 
 cd MavenDependenciesAndPlugins
-if cd YCSB-Embedded; then git pull; else git clone https://github.com/FairPlayer4/YCSB.git YCSB-Embedded; fi
-cd YCSB-Embedded # only necessary if the repository did not exist yet
-cd core
+
+rm -rf YCSB-Embedded
+git clone https://github.com/FairPlayer4/YCSB.git YCSB-Embedded --depth 1
+cd YCSB-Embedded/core
 mvn install
-cd ..
-cd ..
-cd IntellijUIDesignerJarFiles
-mvn install:install-file -Dfile="$PWD/javac2.jar" -DgroupId=com.intellij -DartifactId=javac2 -Dversion=17.1.5 -Dpackaging=jar
-mvn install:install-file -Dfile="$PWD/asm-all.jar" -DgroupId=com.intellij -DartifactId=asm-all -Dversion=17.1.5 -Dpackaging=jar
-mvn install:install-file -Dfile="$PWD/forms_rt.jar" -DgroupId=com.intellij -DartifactId=forms_rt -Dversion=17.1.5 -Dpackaging=jar
-cd ..
-if cd IntellijUIDesignerMavenPlugin; then git pull; else git clone https://github.com/jorichard/ideauidesigner-maven-plugin.git IntellijUIDesignerMavenPlugin; fi
-cd IntellijUIDesignerMavenPlugin # only necessary if the repository did not exist yet
+
+cd ../..
+
+rm -rf Log4jShadeMavenPlugin
+git clone https://github.com/FairPlayer4/maven-shaded-log4j-transformer.git Log4jShadeMavenPlugin --depth 1
+cd Log4jShadeMavenPlugin
 mvn install
+
+cd ..
+
+rm -rf IntellijUIDesignerMavenPlugin
+git clone https://github.com/FairPlayer4/ideauidesigner-maven-plugin IntellijUIDesignerMavenPlugin --depth 1
+cd IntellijUIDesignerMavenPlugin
+./install-intellij-libs.sh
